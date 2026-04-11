@@ -1,0 +1,477 @@
+/* CSS Reset and Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    /* Color Palette */
+    --primary-color: #4a90d9;
+    --primary-hover: #3a7bc8;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --danger-hover: #c82333;
+    --warning-color: #ffc107;
+    --high-priority: #dc3545;
+    --medium-priority: #fd7e14;
+    --low-priority: #28a745;
+    
+    /* Neutral Colors */
+    --bg-primary: #f5f7fa;
+    --bg-card: #ffffff;
+    --text-primary: #2c3e50;
+    --text-secondary: #6c757d;
+    --text-light: #adb5bd;
+    --border-color: #e9ecef;
+    --shadow-color: rgba(0, 0, 0, 0.08);
+    --shadow-hover: rgba(0, 0, 0, 0.12);
+    
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-normal: 250ms ease;
+    --transition-slow: 350ms ease;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: var(--spacing-xl);
+}
+
+/* App Container */
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    padding: var(--spacing-xl);
+}
+
+/* Todo Card */
+.todo-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 2px 8px var(--shadow-color), 0 4px 16px rgba(0, 0, 0, 0.04);
+    padding: var(--spacing-lg);
+    transition: all var(--transition-normal);
+    border: 1px solid var(--border-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.todo-card:hover {
+    box-shadow: 0 4px 12px var(--shadow-hover), 0 8px 24px rgba(0, 0, 0, 0.06);
+    transform: translateY(-2px);
+}
+
+.todo-card.completed {
+    opacity: 0.85;
+}
+
+.todo-card.completed .todo-title {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+.todo-card.completed::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--success-color);
+}
+
+/* Header Section */
+.todo-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+/* Custom Checkbox */
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-top: 2px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.checkmark {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-card);
+    transition: all var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.checkbox-container input[type="checkbox"]:checked + .checkmark::after {
+    content: '';
+    width: 6px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-bottom: 2px;
+}
+
+.checkbox-container:hover .checkmark {
+    border-color: var(--primary-color);
+}
+
+/* Todo Title */
+.todo-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.4;
+    flex: 1;
+    transition: all var(--transition-normal);
+}
+
+/* Todo Description */
+.todo-description {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--spacing-lg);
+    padding-left: 32px;
+}
+
+/* Meta Information Row */
+.todo-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding-left: 32px;
+    margin-bottom: var(--spacing-lg);
+}
+
+/* Priority Badge */
+.priority-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.priority-high {
+    background: rgba(220, 53, 69, 0.1);
+    color: var(--high-priority);
+}
+
+.priority-medium {
+    background: rgba(253, 126, 20, 0.1);
+    color: var(--medium-priority);
+}
+
+.priority-low {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--low-priority);
+}
+
+/* Due Date & Time Remaining */
+.due-date,
+.time-remaining {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    gap: var(--spacing-xs);
+}
+
+.time-remaining.overdue {
+    color: var(--danger-color);
+    font-weight: 600;
+}
+
+/* Status Indicator */
+.status-indicator {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-pending {
+    background: rgba(255, 193, 7, 0.15);
+    color: #856404;
+}
+
+.status-completed {
+    background: rgba(40, 167, 69, 0.15);
+    color: var(--success-color);
+}
+
+.status-in-progress {
+    background: rgba(74, 144, 217, 0.15);
+    color: var(--primary-color);
+}
+
+/* Tags List */
+.tags-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    list-style: none;
+    padding: 0;
+    margin-bottom: var(--spacing-lg);
+    padding-left: 32px;
+}
+
+.tags-list li {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-fast);
+}
+
+.tags-list li:hover {
+    background: var(--border-color);
+}
+
+/* Priority Tabs */
+.priority-tabs {
+    display: flex;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+    justify-content: center;
+}
+
+.priority-tab {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: inherit;
+}
+
+.priority-tab:hover {
+    border-color: var(--text-light);
+    color: var(--text-primary);
+}
+
+.priority-tab:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.priority-tab:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.priority-tab.active {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background: rgba(74, 144, 217, 0.1);
+}
+
+.priority-tab-low.active {
+    border-color: var(--low-priority);
+    color: var(--low-priority);
+    background: rgba(40, 167, 69, 0.1);
+}
+
+.priority-tab-medium.active {
+    border-color: var(--medium-priority);
+    color: var(--medium-priority);
+    background: rgba(253, 126, 20, 0.1);
+}
+
+.priority-tab-high.active {
+    border-color: var(--high-priority);
+    color: var(--high-priority);
+    background: rgba(220, 53, 69, 0.1);
+}
+
+/* Action Buttons */
+.todo-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    padding-left: 32px;
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--border-color);
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-family: inherit;
+}
+
+.btn:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+.btn:focus:not(:focus-visible) {
+    outline: none;
+}
+
+.btn-edit {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+.btn-edit:hover {
+    background: var(--border-color);
+    border-color: var(--text-light);
+}
+
+.btn-edit svg {
+    color: var(--primary-color);
+}
+
+.btn-delete {
+    background: rgba(220, 53, 69, 0.05);
+    color: var(--danger-color);
+    border: 1px solid transparent;
+}
+
+.btn-delete:hover {
+    background: rgba(220, 53, 69, 0.15);
+}
+
+.btn-delete svg {
+    color: var(--danger-color);
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+    body {
+        padding: var(--spacing-md);
+    }
+
+    .app-container {
+        padding: var(--spacing-md);
+    }
+
+    .todo-card {
+        padding: var(--spacing-md);
+    }
+
+    .todo-title {
+        font-size: 1.1rem;
+    }
+
+    .todo-description,
+    .todo-meta,
+    .tags-list,
+    .todo-actions {
+        padding-left: 0;
+    }
+
+    .todo-header {
+        gap: var(--spacing-sm);
+    }
+
+    .todo-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-sm);
+    }
+
+    .todo-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        justify-content: center;
+    }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .todo-card {
+        border: 2px solid var(--text-primary);
+    }
+
+    .priority-badge,
+    .status-indicator {
+        border: 1px solid currentColor;
+    }
+}
